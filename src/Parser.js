@@ -21,6 +21,7 @@ const countryToIso = {
   HOLANDIA: "NL",
   ISLANDIA: "IS",
   LITWA: "LT",
+  ŁOTWA: "LV",
   MACEDONIA: "MK",
   NIEMCY: "DE",
   NORWEGIA: "NO",
@@ -78,10 +79,9 @@ function parseAgreementRow(row) {
 function getCountry(row) {
   return trim(
     row
-      .children("td")
+      .children('td')
       .eq(0)
-      .text()
-  );
+      .text(),);
 }
 
 function parseAgreementRows(rows) {
@@ -96,6 +96,9 @@ function parseAgreementRows(rows) {
     const currentCountry = getCountry(element);
 
     if (!isEmpty(currentCountry)) {
+      if (currentCountry.includes("TS")) {
+        continue; // eslint-disable-line no-continue
+      }
       country = countryToIso[currentCountry];
 
       if (isEmpty(country)) {
